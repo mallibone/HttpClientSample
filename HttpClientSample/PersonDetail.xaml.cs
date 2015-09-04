@@ -12,37 +12,33 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using HttpClientSample.Core;
 using HttpClientSample.ViewModel;
 
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
+// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace HttpClientSample
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MainPage : Page
+    public sealed partial class PersonDetail : Page
     {
-        private MainViewModel _viewModel;
+        private PersonViewModel _viewModel;
 
-        public MainPage()
+        public PersonDetail()
         {
             this.InitializeComponent();
-            _viewModel = ((MainViewModel) DataContext);
-            _viewModel.ShowPerson = ShowPerson;
-        }
-
-        private void ShowPerson(int personId)
-        {
-            Frame.Navigate(typeof (PersonDetail), personId);
+            _viewModel = (PersonViewModel) DataContext;
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            await _viewModel.Init();
-        }
 
+            if(e == null) throw new ArgumentException();
+            var personId = ((int)(e?.Parameter ?? 0));
+
+            await _viewModel.Init(personId);
+        }
     }
 }

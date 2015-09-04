@@ -9,8 +9,8 @@
     mc:Ignorable="d">
 
     <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <TextBox Header="Firstname" Text="{Binding Firstname, Mode=TwoWay}"/>
-    <TextBox Header="Lastname" Text="{Binding Lastname, Mode=TwoWay}"/>
-    <Button Content="Save" Command="{Binding StoreCommand}"/>
+        <TextBox Header="Firstname" Text="{Binding Firstname, Mode=TwoWay}"/>
+        <TextBox Header="Lastname" Text="{Binding Lastname, Mode=TwoWay}"/>
+        <Button Content="Save" Command="{Binding StoreCommand}" HorizontalAlignment="Center" Margin="0,10"/>
     </StackPanel>
 </Page>

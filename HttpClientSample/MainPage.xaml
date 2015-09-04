@@ -9,7 +9,7 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <GridView ItemsSource="{Binding People}" SelectedItem="{Binding SelectedPerson}"></GridView>
+    <GridView ItemsSource="{Binding People}" SelectedItem="{Binding SelectedPerson, Mode=TwoWay}"></GridView>
 
     </Grid>
 </Page>
