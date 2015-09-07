@@ -4,12 +4,11 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using HttpClientSample.Core;
 using HttpClientSample.Core.Services;
 
-namespace HttpClientSample.ViewModel
+namespace HttpClientSample.Core.ViewModel
 {
-    internal class MainViewModel:ViewModelBase
+    public class MainViewModel:ViewModelBase
     {
         private readonly IPersonService _personService;
         private ObservableCollection<Person> _people;

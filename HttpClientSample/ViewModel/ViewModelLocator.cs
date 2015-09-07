@@ -4,6 +4,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using HttpClientSample.Core.Services;
 using HttpClientSample.Core.Services.Impl;
+using HttpClientSample.Core.ViewModel;
 using Microsoft.Practices.ServiceLocation;
 
 namespace HttpClientSample.ViewModel
