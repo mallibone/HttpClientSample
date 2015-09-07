@@ -9,7 +9,10 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <GridView ItemsSource="{Binding People}" SelectedItem="{Binding SelectedPerson, Mode=TwoWay}"></GridView>
+        <GridView ItemsSource="{Binding People}" SelectedItem="{Binding SelectedPerson, Mode=TwoWay}"></GridView>
 
+        <AppBar VerticalAlignment="Bottom">
+            <AppBarButton Icon="Add" Label="Add" Command="{Binding AddNewPerson}" />
+        </AppBar>
     </Grid>
 </Page>

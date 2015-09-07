@@ -15,16 +15,27 @@ namespace HttpClientSample.ViewModel
         private int _id;
         private string _firstname;
         private string _lastname;
+        private bool _hasPendingChanges;
 
         public PersonViewModel(IPersonService personService)
         {
             if (personService == null) throw new ArgumentNullException(nameof(personService));
             _personService = personService;
 
-            StoreCommand = new RelayCommand(StorePerson, () => HasPendingChanges);
+            StoreCommand = new RelayCommand(StorePerson, () => true);
+            HasPendingChanges = false;
         }
 
-        public bool HasPendingChanges { get; set; }
+        public bool HasPendingChanges
+        {
+            get { return _hasPendingChanges; }
+            set
+            {
+                if (value == _hasPendingChanges) return;
+                _hasPendingChanges = value;
+                RaisePropertyChanged(nameof(HasPendingChanges));
+            }
+        }
 
         public string Firstname
         {
@@ -33,6 +44,7 @@ namespace HttpClientSample.ViewModel
             {
                 if (value == _firstname) return;
                 _firstname = value;
+                HasPendingChanges = true;
                 RaisePropertyChanged(nameof(Firstname));
             }
         }
@@ -44,6 +56,7 @@ namespace HttpClientSample.ViewModel
             {
                 if (_lastname == value) return;
                 _lastname = value;
+                HasPendingChanges = true;
                 RaisePropertyChanged(nameof(Lastname));
             }
         }
@@ -56,6 +69,7 @@ namespace HttpClientSample.ViewModel
             var person = id > 0 ? (await _personService.GetPeople()).ToList()[id] : new Person("", "");
             Firstname = person.FirstName;
             Lastname = person.LastName;
+            HasPendingChanges = false;
         }
 
         private async void StorePerson()
@@ -73,6 +87,7 @@ namespace HttpClientSample.ViewModel
                 await _personService.CreatePerson(person);
             }
 
+            HasPendingChanges = false;
         }
     }
 }

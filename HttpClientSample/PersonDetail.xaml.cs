@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -39,6 +40,21 @@ namespace HttpClientSample
             var personId = ((int)(e?.Parameter ?? 0));
 
             await _viewModel.Init(personId);
+        }
+
+        private void PersonDetail_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+            SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
+        }
+
+        private void OnBackRequested(object sender, BackRequestedEventArgs backRequestedEventArgs)
+        {
+            if (Frame.CanGoBack)
+            {
+                Frame.GoBack();
+                backRequestedEventArgs.Handled = true;
+            }
         }
     }
 }

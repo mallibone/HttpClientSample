@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using HttpClientSample.Core;
 using HttpClientSample.Core.Services;
 
@@ -19,6 +21,7 @@ namespace HttpClientSample.ViewModel
             _personService = personService;
             _people = new ObservableCollection<Person>();
             ShowPerson = person => { };
+            AddNewPerson = new RelayCommand(() => ShowPerson(0));
         }
 
         public ObservableCollection<Person> People => _people;
@@ -31,10 +34,12 @@ namespace HttpClientSample.ViewModel
             {
                 if (_selectedPerson == value) return;
                 _selectedPerson = value;
-                ShowPerson(_people.IndexOf(_selectedPerson));
                 RaisePropertyChanged(nameof(SelectedPerson));
+                if (_selectedPerson != null) ShowPerson(_people.IndexOf(_selectedPerson));
             }
         }
+
+        public ICommand AddNewPerson { get; private set; }
 
         public async Task Init()
         {

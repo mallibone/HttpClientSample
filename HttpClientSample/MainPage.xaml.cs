@@ -5,12 +5,14 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using HttpClientSample.Core;
 using HttpClientSample.ViewModel;
@@ -36,6 +38,7 @@ namespace HttpClientSample
         private void ShowPerson(int personId)
         {
             Frame.Navigate(typeof (PersonDetail), personId);
+            _viewModel.SelectedPerson = null;
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
@@ -44,5 +47,17 @@ namespace HttpClientSample
             await _viewModel.Init();
         }
 
+        //private void MainPage_OnLoaded(object sender, RoutedEventArgs e)
+        //{
+        //    SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
+        //}
+
+        //private void OnBackRequested(object sender, BackRequestedEventArgs e)
+        //{
+        //    if (Frame.CanGoBack)
+        //    {
+                
+        //    }
+        //}
     }
 }
