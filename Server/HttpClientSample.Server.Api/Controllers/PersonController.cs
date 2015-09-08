@@ -34,7 +34,7 @@ namespace HttpClientSample.Server.Api.Controllers
 
             _people.Value.Add(value);
 
-            return Ok(value);
+            return CreatedAtRoute("DefaultApi", new { id = _people.Value.IndexOf(value) }, _people.Value.Last());
         }
 
         // PUT: api/Person/5
@@ -55,7 +55,7 @@ namespace HttpClientSample.Server.Api.Controllers
 
             _people.Value.RemoveAt(id);
 
-            return Ok();
+            return StatusCode(System.Net.HttpStatusCode.NoContent);
         }
     }
 

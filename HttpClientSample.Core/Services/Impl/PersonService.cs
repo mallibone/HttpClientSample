@@ -9,8 +9,8 @@ namespace HttpClientSample.Core.Services.Impl
 {
     public class PersonService : IPersonService
     {
+        private const string BASE_URI = "https://httpclientsample.azurewebsites.net/api/person";
         private HttpClient _httpClient;
-        private const string BASE_URI = "http://httpclientsample.azurewebsites.net/api/person";
 
         public PersonService()
         {
