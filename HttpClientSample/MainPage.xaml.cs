@@ -47,18 +47,5 @@ namespace HttpClientSample
             base.OnNavigatedTo(e);
             await _viewModel.Init();
         }
-
-        //private void MainPage_OnLoaded(object sender, RoutedEventArgs e)
-        //{
-        //    SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
-        //}
-
-        //private void OnBackRequested(object sender, BackRequestedEventArgs e)
-        //{
-        //    if (Frame.CanGoBack)
-        //    {
-                
-        //    }
-        //}
     }
 }

@@ -41,7 +41,7 @@
     <Compile Include="Services\IPersonService.cs" />
     <Compile Include="Services\Impl\PersonService.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\PersonViewModel.cs" />
+    <Compile Include="ViewModel\PersonDetailViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="GalaSoft.MvvmLight, Version=5.2.0.37222, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">

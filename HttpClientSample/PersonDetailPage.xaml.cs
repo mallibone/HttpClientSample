@@ -25,12 +25,12 @@ namespace HttpClientSample
     /// </summary>
     public sealed partial class PersonDetailPage : Page
     {
-        private PersonViewModel _viewModel;
+        private PersonDetailViewModel _viewModel;
 
         public PersonDetailPage()
         {
             this.InitializeComponent();
-            _viewModel = (PersonViewModel) DataContext;
+            _viewModel = (PersonDetailViewModel) DataContext;
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
