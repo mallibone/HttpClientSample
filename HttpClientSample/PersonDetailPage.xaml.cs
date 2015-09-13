@@ -23,11 +23,11 @@ namespace HttpClientSample
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class PersonDetail : Page
+    public sealed partial class PersonDetailPage : Page
     {
         private PersonViewModel _viewModel;
 
-        public PersonDetail()
+        public PersonDetailPage()
         {
             this.InitializeComponent();
             _viewModel = (PersonViewModel) DataContext;
@@ -38,7 +38,7 @@ namespace HttpClientSample
             base.OnNavigatedTo(e);
 
             if(e == null) throw new ArgumentException();
-            var personId = ((int)(e?.Parameter ?? 0));
+            var personId = ((int)(e?.Parameter ?? -1));
 
             await _viewModel.Init(personId);
         }

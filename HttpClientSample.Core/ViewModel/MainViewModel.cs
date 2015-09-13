@@ -20,7 +20,7 @@ namespace HttpClientSample.Core.ViewModel
             _personService = personService;
             _people = new ObservableCollection<Person>();
             ShowPerson = person => { };
-            AddNewPerson = new RelayCommand(() => ShowPerson(0));
+            AddNewPerson = new RelayCommand(() => ShowPerson(-1));
         }
 
         public ObservableCollection<Person> People => _people;

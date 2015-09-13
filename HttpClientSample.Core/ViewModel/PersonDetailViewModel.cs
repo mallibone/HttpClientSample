@@ -8,7 +8,7 @@ using HttpClientSample.Core.Services;
 
 namespace HttpClientSample.Core.ViewModel
 {
-    public class PersonViewModel:ViewModelBase
+    public class PersonDetailViewModel:ViewModelBase
     {
         private readonly IPersonService _personService;
         private int _id;
@@ -16,7 +16,7 @@ namespace HttpClientSample.Core.ViewModel
         private string _lastname;
         private bool _hasPendingChanges;
 
-        public PersonViewModel(IPersonService personService)
+        public PersonDetailViewModel(IPersonService personService)
         {
             if (personService == null) throw new ArgumentNullException(nameof(personService));
             _personService = personService;
@@ -77,7 +77,7 @@ namespace HttpClientSample.Core.ViewModel
 
             var person = new Person(Firstname, Lastname);
 
-            if (_id > 0)
+            if (_id >= 0)
             {
                 await _personService.UpdatePerson(_id, person);
             }
@@ -85,8 +85,6 @@ namespace HttpClientSample.Core.ViewModel
             {
                 await _personService.CreatePerson(person);
             }
-
-            HasPendingChanges = false;
         }
     }
 }

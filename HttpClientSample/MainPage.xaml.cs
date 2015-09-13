@@ -38,7 +38,7 @@ namespace HttpClientSample
 
         private void ShowPerson(int personId)
         {
-            Frame.Navigate(typeof (PersonDetail), personId);
+            Frame.Navigate(typeof (PersonDetailPage), personId);
             _viewModel.SelectedPerson = null;
         }
 

@@ -30,11 +30,11 @@ namespace HttpClientSample.ViewModel
                 }
 
                 SimpleIoc.Default.Register<MainViewModel>();
-                SimpleIoc.Default.Register<PersonViewModel>();
+                SimpleIoc.Default.Register<PersonDetailViewModel>();
         }
 
         public MainViewModel Main => SimpleIoc.Default.GetInstance<MainViewModel>();
 
-        public PersonViewModel Person => SimpleIoc.Default.GetInstance<PersonViewModel>();
+        public PersonDetailViewModel Person => SimpleIoc.Default.GetInstance<PersonDetailViewModel>();
     }
 }
