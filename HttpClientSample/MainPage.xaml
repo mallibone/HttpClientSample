@@ -11,7 +11,7 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <GridView ItemsSource="{Binding People}" SelectedItem="{Binding SelectedPerson, Mode=TwoWay}"></GridView>
 
-        <AppBar VerticalAlignment="Bottom" IsOpen="True" >
+        <AppBar VerticalAlignment="Bottom">
             <AppBarButton Icon="Add" Label="Add Person" Command="{Binding AddNewPerson}" />
         </AppBar>
     </Grid>
