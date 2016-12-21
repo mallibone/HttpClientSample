@@ -7,7 +7,7 @@ namespace HttpClientSample.Server.Api.Service
     // As found on https://digitaltoolfactory.net/blog/2012/04/how-to-make-a-random-name-generator-in-c/
     public static class NameGenerator
     {
-        public static Random rnd = new Random();
+        public static Random rnd = new Random(42);
 
         public static string GenRandomLastName()
         {
