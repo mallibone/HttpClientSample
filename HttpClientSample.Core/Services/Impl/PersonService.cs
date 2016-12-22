@@ -34,9 +34,9 @@ namespace HttpClientSample.Core.Services.Impl
             return result.IsSuccessStatusCode;
         }
 
-        public async Task<bool> UpdatePerson(int id, Person person)
+        public async Task<bool> UpdatePerson(Person person)
         {
-            var uri = Path.Combine(BASE_URI, id.ToString());
+            var uri = Path.Combine(BASE_URI, person.Id.ToString());
 
             var personJson = JsonConvert.SerializeObject(person);
             var content = new StringContent(personJson, Encoding.UTF8, "application/json");

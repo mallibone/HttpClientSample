@@ -33,7 +33,7 @@ namespace HttpClientSample.IntegrationTest
         {
             var people = await _personService.GetPeople();
 
-            var newPerson = new Person("Amy", "Pond");
+            var newPerson = new Person {FirstName = "Amy", LastName = "Pond"};
 
             var result = await _personService.CreatePerson(newPerson);
 
@@ -45,7 +45,7 @@ namespace HttpClientSample.IntegrationTest
         {
             var people = await _personService.GetPeople();
 
-            var newPerson = new Person("Amy", "Pond");
+            var newPerson = new Person{FirstName = "Amy", LastName = "Pond"};
 
             await _personService.CreatePerson(newPerson);
 
@@ -60,16 +60,17 @@ namespace HttpClientSample.IntegrationTest
         {
             var people = (await _personService.GetPeople()).ToList();
 
-            var person = people[42];
+            var person = people[8];
 
-            var firstName = person.FirstName == "River" ? "Rose" : "River";
-            var lastName = person.LastName == "Song" ? "Tyler" : "Song";
+            var firstName = person.FirstName.Equals("River") ? "Rose" : "River";
+            var lastName = person.LastName.Equals("Song") ? "Tyler" : "Song";
 
-            var updatedPerson = new Person(firstName, lastName);
+            person.FirstName = firstName;
+            person.LastName = lastName;
 
-            await _personService.UpdatePerson(42, updatedPerson);
+            await _personService.UpdatePerson(person);
 
-            var servicePersonUpdated = (await _personService.GetPeople()).ToList()[42];
+            var servicePersonUpdated = (await _personService.GetPeople()).ToList()[8];
             Assert.True(servicePersonUpdated.FirstName == firstName);
             Assert.True(servicePersonUpdated.LastName == lastName);
         }

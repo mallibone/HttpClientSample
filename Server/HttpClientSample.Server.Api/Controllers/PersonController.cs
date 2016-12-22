@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Web.Http;
 using HttpClientSample.Server.Api.Models;
 using HttpClientSample.Server.Api.Service;
@@ -12,7 +10,8 @@ namespace HttpClientSample.Server.Api.Controllers
 {
     public class PersonController : ApiController
     {
-        private readonly static Lazy<IList<Person>> _people = new Lazy<IList<Person>>(() => new PersonService().GeneratePeople(1000), LazyThreadSafetyMode.PublicationOnly);
+        private readonly static Lazy<IList<Person>> _people = new Lazy<IList<Person>>(() => new PersonService().GeneratePeople(20), LazyThreadSafetyMode.PublicationOnly);
+        private readonly object _sync = new object();
         // GET: api/Person
         public IEnumerable<Person> Get()
         {
@@ -31,8 +30,24 @@ namespace HttpClientSample.Server.Api.Controllers
         public IHttpActionResult Post(Person value)
         {
             if (value == null) return BadRequest();
+            var person = value;
 
-            _people.Value.Add(value);
+            lock (_sync)
+            {
+                var foundPerson = _people.Value.FirstOrDefault(p => p.Id == person.Id) ?? new Person();
+
+                if (foundPerson.Id == 0)
+                {
+                    foundPerson.Id = (_people.Value.Last().Id + 1);
+                    _people.Value.Add(foundPerson);
+                }
+
+                foundPerson.FirstName = person.FirstName;
+                foundPerson.LastName = person.LastName;
+                foundPerson.Birthday = person.Birthday;
+
+                _people.Value.Add(value);
+            }
 
             return CreatedAtRoute("DefaultApi", new { id = _people.Value.IndexOf(value) }, _people.Value.Last());
         }
@@ -43,7 +58,12 @@ namespace HttpClientSample.Server.Api.Controllers
         {
             if (id < 0 || id >= _people.Value.Count()) return BadRequest();
 
-            _people.Value[id] = value;
+            var foundPerson = _people.Value.FirstOrDefault(p => p.Id == value.Id);
+            if(foundPerson == null) return NotFound();
+
+            foundPerson.FirstName = value.FirstName;
+            foundPerson.LastName = value.LastName;
+            foundPerson.Birthday = value.Birthday;
 
             return Ok(value);
         }
@@ -72,7 +92,24 @@ namespace HttpClientSample.Server.Api.Controllers
                 lastNames.Add(NameGenerator.GenRandomLastName());
             }
 
-            return firstNames.Zip(lastNames, (firstName, lastName) => new Person(firstName, lastName)).ToList();
+            var people = firstNames.Zip(lastNames,
+                (firstName, lastName) => new Person { FirstName = firstName, LastName = lastName }).ToList();
+
+            foreach (var person in people)
+            {
+                person.Id = people.IndexOf(person) + 1;
+                person.Birthday = RandomDayFunc();
+            }
+
+            return people;
+        }
+
+        private DateTime RandomDayFunc()
+        {
+            DateTime start = new DateTime(1965, 1, 1);
+            Random gen = new Random();
+            int range = ((TimeSpan)(new DateTime(1996, 1, 1) - start)).Days;
+            return start.AddDays(gen.Next(range));
         }
     }
 }

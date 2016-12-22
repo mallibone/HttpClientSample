@@ -65,7 +65,7 @@ namespace HttpClientSample.Core.ViewModel
         public async Task Init(int id)
         {
             _id = id;
-            var person = id >= 0 ? (await _personService.GetPeople()).ToList()[id] : new Person("", "");
+            var person = id >= 0 ? (await _personService.GetPeople()).ToList()[id] : new Person{FirstName = "", LastName = ""};
             Firstname = person.FirstName;
             Lastname = person.LastName;
             HasPendingChanges = false;
@@ -75,11 +75,11 @@ namespace HttpClientSample.Core.ViewModel
         {
             HasPendingChanges = false;
 
-            var person = new Person(Firstname, Lastname);
+            var person = new Person{FirstName = Firstname, LastName = Lastname, Id = _id};
 
             if (_id >= 0)
             {
-                await _personService.UpdatePerson(_id, person);
+                await _personService.UpdatePerson(person);
             }
             else
             {

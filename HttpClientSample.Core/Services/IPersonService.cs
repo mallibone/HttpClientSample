@@ -7,6 +7,6 @@ namespace HttpClientSample.Core.Services
     {
         Task<bool> CreatePerson(Person person);
         Task<IEnumerable<Person>> GetPeople();
-        Task<bool> UpdatePerson(int id, Person person);
+        Task<bool> UpdatePerson(Person person);
     }
 }
