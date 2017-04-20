@@ -116,6 +116,8 @@
   <ItemGroup>
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\NoteController.cs" />
+    <Compile Include="Models\Note.cs" />
     <Compile Include="Service\NameGenerator.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Controllers\PersonController.cs" />
@@ -129,6 +131,7 @@
     <Content Include="Metadata\deploymentTemplates\apiappconfig.azureresource.json" />
     <Content Include="apiapp.json" />
     <None Include="Properties\PublishProfiles\httpclientsample.pubxml" />
+    <None Include="Properties\PublishProfiles\xamarinwebservice - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
